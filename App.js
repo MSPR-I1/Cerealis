@@ -40,7 +40,7 @@ const ARScene = createReactClass({
           source={require('./assets/tesla/garage_1k.hdr')}
         />
         <ViroARImageMarker
-          target={'logo'}
+          target={'rhino'}
           onAnchorFound={this._onAnchorFound}
           pauseUpdates={this.state.pauseUpdates}>
           <ViroNode
@@ -277,8 +277,8 @@ ViroMaterials.createMaterials({
 });
 
 ViroARTrackingTargets.createTargets({
-  logo: {
-    source: require('./assets/tesla/logo.png'),
+  rhino: {
+    source: require('./assets/tesla/rhino.png'),
     orientation: 'Up',
     physicalWidth: 0.165, // real world width in meters
   },
