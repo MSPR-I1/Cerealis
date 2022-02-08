@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import {View, Text} from 'react-native';
 
 import {
   ViroARScene,
@@ -13,12 +14,13 @@ import {
   ViroARTrackingTargets,
   ViroSphere,
   ViroSpotLight,
+  ViroARSceneNavigator,
   ViroQuad,
 } from '@viro-community/react-viro';
 
 var createReactClass = require('create-react-class');
 
-var ARCarDemo = createReactClass({
+const ARScene = createReactClass({
   getInitialState() {
     return {
       texture: 'white',
@@ -31,14 +33,12 @@ var ARCarDemo = createReactClass({
       tapYellow: false,
     };
   },
-
   render: function () {
     return (
       <ViroARScene>
         <ViroLightingEnvironment
           source={require('./assets/tesla/garage_1k.hdr')}
         />
-
         <ViroARImageMarker
           target={'logo'}
           onAnchorFound={this._onAnchorFound}
@@ -157,6 +157,7 @@ var ARCarDemo = createReactClass({
       </ViroARScene>
     );
   },
+
   _onAnchorFound() {
     this.setState({
       animateCar: true,
@@ -206,6 +207,19 @@ var ARCarDemo = createReactClass({
       tapRed: false,
       tapYellow: false,
     });
+  },
+});
+
+const ARCarDemo = createReactClass({
+  render: function () {
+    return (
+      <View style={{flex: 1}}>
+        <ViroARSceneNavigator
+          initialScene={{scene: ARScene}}
+          style={{flex: 1}}
+        />
+      </View>
+    );
   },
 });
 
@@ -295,4 +309,4 @@ ViroAnimations.registerAnimations({
   tapAnimation: [['scaleSphereUp', 'scaleSphereDown']],
 });
 
-module.exports = ARCarDemo;
+export default ARCarDemo;
