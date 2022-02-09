@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 import {
   ViroARScene,
@@ -9,7 +9,6 @@ import {
   ViroNode,
   ViroAnimations,
   Viro3DObject,
-  ViroLightingEnvironment,
   ViroARImageMarker,
   ViroARTrackingTargets,
   ViroSphere,
@@ -33,12 +32,10 @@ const ARScene = createReactClass({
       tapYellow: false,
     };
   },
-  render: function () {
+  render: function (props) {
+    let data = props.sceneNavigator.viroAppProps;
     return (
       <ViroARScene>
-        <ViroLightingEnvironment
-          source={require('./assets/tesla/garage_1k.hdr')}
-        />
         <ViroARImageMarker
           target={'rhino'}
           onAnchorFound={this._onAnchorFound}
@@ -123,15 +120,37 @@ const ARScene = createReactClass({
             />
           </ViroNode>
 
-          <Viro3DObject
-            scale={[0, 0, 0]}
-            source={require('./assets/tesla/object_car.obj')}
-            resources={[require('./assets/tesla/object_car.mtl')]}
-            type="OBJ"
-            materials={this.state.texture}
-            onClick={this._toggleButtons}
-            animation={{name: 'scaleCar', run: this.state.animateCar}}
-          />
+          {data.object === 'rhino' ? (
+            <Viro3DObject
+              scale={[0, 0, 0]}
+              source={require('./assets/tesla/object_car.obj')}
+              resources={[require('./assets/tesla/object_car.mtl')]}
+              type="OBJ"
+              materials={this.state.texture}
+              onClick={this._toggleButtons}
+              animation={{name: 'scaleCar', run: this.state.animateCar}}
+            />
+          ) : data.object === 'serpent' ? (
+            <Viro3DObject
+              scale={[0, 0, 0]}
+              source={require('./assets/tesla/object_car.obj')}
+              resources={[require('./assets/tesla/object_car.mtl')]}
+              type="OBJ"
+              materials={this.state.texture}
+              onClick={this._toggleButtons}
+              animation={{name: 'scaleCar', run: this.state.animateCar}}
+            />
+          ) : (
+            <Viro3DObject
+              scale={[0, 0, 0]}
+              source={require('./assets/tesla/object_car.obj')}
+              resources={[require('./assets/tesla/object_car.mtl')]}
+              type="OBJ"
+              materials={this.state.texture}
+              onClick={this._toggleButtons}
+              animation={{name: 'scaleCar', run: this.state.animateCar}}
+            />
+          )}
 
           <ViroSpotLight
             innerAngle={5}
@@ -210,14 +229,46 @@ const ARScene = createReactClass({
   },
 });
 
+var styles = StyleSheet.create({
+  mainView: {
+    flex: 1,
+  },
+  controlsView: {
+    width: '100%',
+    height: 100,
+    backgroundColor: '#ffffff',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textButton: {
+    margin: 20,
+    backgroundColor: '#9d9d9d',
+    padding: 10,
+    fontWeight: 'bold',
+  },
+});
+
 const ARCarDemo = createReactClass({
   render: function () {
     return (
       <View style={{flex: 1}}>
         <ViroARSceneNavigator
           initialScene={{scene: ARScene}}
+          viroAppProps={{object: 'object'}}
           style={{flex: 1}}
         />
+        <View style={styles.controlsView}>
+          <TouchableOpacity onClick={this._toggleButtons}>
+            <Text style={styles.textButton}>Rhino</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onClick={this._toggleButtons}>
+            <Text style={styles.textButton}>Serpent</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onClick={this._toggleButtons}>
+            <Text style={styles.textButton}>Singe</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   },
