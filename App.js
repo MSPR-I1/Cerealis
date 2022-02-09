@@ -32,8 +32,7 @@ const ARScene = createReactClass({
       tapYellow: false,
     };
   },
-  render: function (props) {
-    let data = props.sceneNavigator.viroAppProps;
+  render: function () {
     return (
       <ViroARScene>
         <ViroARImageMarker
@@ -329,7 +328,7 @@ ViroMaterials.createMaterials({
 
 ViroARTrackingTargets.createTargets({
   rhino: {
-    source: require('./assets/tesla/rhino.png'),
+    source: require('./assets/rhino/rhino.png'),
     orientation: 'Up',
     physicalWidth: 0.165, // real world width in meters
   },
