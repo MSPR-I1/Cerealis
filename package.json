@@ -14,12 +14,14 @@
     "create-react-class": "^15.7.0",
     "fsevents": "^2.3.2",
     "react": "17.0.2",
+    "react-console-logger": "^0.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-native": "0.65.1",
     "react-native-share": "^7.3.5",
     "react-share": "^4.4.0",
-    "react-social": "^1.10.0"
+    "react-social": "^1.10.0",
+    "use-react-screenshot": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",

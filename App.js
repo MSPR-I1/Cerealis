@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, StyleSheet, Image } from "react-native";
 
 import {
   ViroARScene,
@@ -16,8 +16,6 @@ import {
   ViroARSceneNavigator,
   ViroQuad,
 } from '@viro-community/react-viro';
-
-var createReactClass = require('create-react-class');
 
 const ARScene = createReactClass({
   getInitialState() {
@@ -42,6 +40,85 @@ const ARScene = createReactClass({
           <ViroNode
             scale={[0, 0, 0]}
             transformBehaviors={['billboardY']}
+            animation={{name: this.state.animName, run: this.state.playAnim}}
+          />
+          <Viro3DObject
+            scale={[0, 0, 0]}
+            source={require('./assets/tesla/object_car.obj')}
+            resources={[require('./assets/tesla/object_car.mtl')]}
+            type="OBJ"
+            materials={this.state.texture}
+            onClick={this._toggleButtons}
+            animation={{name: 'scaleCar', run: this.state.animateCar}}
+          />
+
+          <ViroSpotLight
+            innerAngle={5}
+            outerAngle={25}
+            direction={[0, -1, 0]}
+            position={[0, 5, 1]}
+            color="#ffffff"
+            castsShadow={true}
+            shadowMapSize={2048}
+            shadowNearZ={2}
+            shadowFarZ={7}
+            shadowOpacity={0.7}
+          />
+          <ViroQuad
+            rotation={[-90, 0, 0]}
+            position={[0, -0.001, 0]}
+            width={2.5}
+            height={2.5}
+            arShadowReceiver={true}
+          />
+        </ViroARImageMarker>
+        <ViroARImageMarker
+          target={'singe'}
+          onAnchorFound={this._onAnchorFound}
+          pauseUpdates={this.state.pauseUpdates}>
+          <ViroNode
+            scale={[0, 0, 0]}
+            transformBehaviors={['billboardY']}
+            animation={{name: this.state.animName, run: this.state.playAnim}}
+          />
+          <Viro3DObject
+            scale={[0, 0, 0]}
+            source={require('./assets/tesla/object_car.obj')}
+            resources={[require('./assets/tesla/object_car.mtl')]}
+            type="OBJ"
+            materials={this.state.texture}
+            onClick={this._toggleButtons}
+            animation={{name: 'scaleCar', run: this.state.animateCar}}
+          />
+
+          <ViroSpotLight
+            innerAngle={5}
+            outerAngle={25}
+            direction={[0, -1, 0]}
+            position={[0, 5, 1]}
+            color="#ffffff"
+            castsShadow={true}
+            shadowMapSize={2048}
+            shadowNearZ={2}
+            shadowFarZ={7}
+            shadowOpacity={0.7}
+          />
+
+          <ViroQuad
+            rotation={[-90, 0, 0]}
+            position={[0, -0.001, 0]}
+            width={2.5}
+            height={2.5}
+            arShadowReceiver={true}
+          />
+        </ViroARImageMarker>
+        <ViroARImageMarker
+          target={'tesla'}
+          onAnchorFound={this._onAnchorFound}
+          pauseUpdates={this.state.pauseUpdates}>
+          <ViroNode
+            scale={[0, 0, 0]}
+            transformBehaviors={['billboardY']}
             animation={{name: this.state.animName, run: this.state.playAnim}}>
             <ViroSphere
               materials={['white_sphere']}
@@ -57,7 +134,6 @@ const ARScene = createReactClass({
               }}
               shadowCastingBitMask={0}
             />
-
             <ViroSphere
               materials={['blue_sphere']}
               heightSegmentCount={20}
@@ -72,7 +148,6 @@ const ARScene = createReactClass({
               }}
               shadowCastingBitMask={0}
             />
-
             <ViroSphere
               materials={['grey_sphere']}
               heightSegmentCount={20}
@@ -118,38 +193,15 @@ const ARScene = createReactClass({
               shadowCastingBitMask={0}
             />
           </ViroNode>
-
-          {data.object === 'rhino' ? (
-            <Viro3DObject
-              scale={[0, 0, 0]}
-              source={require('./assets/tesla/object_car.obj')}
-              resources={[require('./assets/tesla/object_car.mtl')]}
-              type="OBJ"
-              materials={this.state.texture}
-              onClick={this._toggleButtons}
-              animation={{name: 'scaleCar', run: this.state.animateCar}}
-            />
-          ) : data.object === 'serpent' ? (
-            <Viro3DObject
-              scale={[0, 0, 0]}
-              source={require('./assets/tesla/object_car.obj')}
-              resources={[require('./assets/tesla/object_car.mtl')]}
-              type="OBJ"
-              materials={this.state.texture}
-              onClick={this._toggleButtons}
-              animation={{name: 'scaleCar', run: this.state.animateCar}}
-            />
-          ) : (
-            <Viro3DObject
-              scale={[0, 0, 0]}
-              source={require('./assets/tesla/object_car.obj')}
-              resources={[require('./assets/tesla/object_car.mtl')]}
-              type="OBJ"
-              materials={this.state.texture}
-              onClick={this._toggleButtons}
-              animation={{name: 'scaleCar', run: this.state.animateCar}}
-            />
-          )}
+          <Viro3DObject
+            scale={[0, 0, 0]}
+            source={require('./assets/tesla/object_car.obj')}
+            resources={[require('./assets/tesla/object_car.mtl')]}
+            type="OBJ"
+            materials={this.state.texture}
+            onClick={this._toggleButtons}
+            animation={{name: 'scaleCar', run: this.state.animateCar}}
+          />
 
           <ViroSpotLight
             innerAngle={5}
@@ -175,7 +227,6 @@ const ARScene = createReactClass({
       </ViroARScene>
     );
   },
-
   _onAnchorFound() {
     this.setState({
       animateCar: true,
@@ -228,50 +279,7 @@ const ARScene = createReactClass({
   },
 });
 
-var styles = StyleSheet.create({
-  mainView: {
-    flex: 1,
-  },
-  controlsView: {
-    width: '100%',
-    height: 100,
-    backgroundColor: '#ffffff',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  textButton: {
-    margin: 20,
-    backgroundColor: '#9d9d9d',
-    padding: 10,
-    fontWeight: 'bold',
-  },
-});
-
-const ARCarDemo = createReactClass({
-  render: function () {
-    return (
-      <View style={{flex: 1}}>
-        <ViroARSceneNavigator
-          initialScene={{scene: ARScene}}
-          viroAppProps={{object: 'object'}}
-          style={{flex: 1}}
-        />
-        <View style={styles.controlsView}>
-          <TouchableOpacity onClick={this._toggleButtons}>
-            <Text style={styles.textButton}>Rhino</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onClick={this._toggleButtons}>
-            <Text style={styles.textButton}>Serpent</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onClick={this._toggleButtons}>
-            <Text style={styles.textButton}>Singe</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  },
-});
+var createReactClass = require('create-react-class');
 
 ViroMaterials.createMaterials({
   white: {
@@ -332,6 +340,16 @@ ViroARTrackingTargets.createTargets({
     orientation: 'Up',
     physicalWidth: 0.165, // real world width in meters
   },
+  singe: {
+    source: require('./assets/singe/singe.png'),
+    orientation: 'Up',
+    physicalWidth: 0.165, // real world width in meters
+  },
+  tesla: {
+    source: require('./assets/tesla/logo.png'),
+    orientation: 'Up',
+    physicalWidth: 0.165, // real world width in meters
+  },
 });
 
 ViroAnimations.registerAnimations({
@@ -359,4 +377,44 @@ ViroAnimations.registerAnimations({
   tapAnimation: [['scaleSphereUp', 'scaleSphereDown']],
 });
 
+const ARCarDemo = createReactClass({
+  render: function () {
+    return (
+      <View style={{flex: 1}}>
+        <ViroARSceneNavigator
+          initialScene={{scene: ARScene}}
+          viroAppProps={{object: 'object'}}
+          style={{flex: 1}}
+        />
+        {/*<View style={styles.container}>
+          <Image
+            style={styles.image}
+            source={require('./assets/logoApp/LogoInApp.png')}
+          />
+        </View>*/}
+      </View>
+    );
+  },
+});
+
 export default ARCarDemo;
+
+var styles = StyleSheet.create({
+  mainView: {
+    flex: 1,
+  },
+  controlsView: {
+    width: '100%',
+    height: 100,
+    backgroundColor: '#ffffff',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textButton: {
+    margin: 20,
+    backgroundColor: '#9d9d9d',
+    padding: 10,
+    fontWeight: 'bold',
+  },
+});
