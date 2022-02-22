@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { View, StyleSheet, Image } from "react-native";
+import {View, StyleSheet, Image} from 'react-native';
 
 import {
   ViroARScene,
@@ -386,12 +386,12 @@ const ARCarDemo = createReactClass({
           viroAppProps={{object: 'object'}}
           style={{flex: 1}}
         />
-        {/*<View style={styles.container}>
+        <View style={styles.container}>
           <Image
             style={styles.image}
             source={require('./assets/logoApp/LogoInApp.png')}
           />
-        </View>*/}
+        </View>
       </View>
     );
   },
@@ -416,5 +416,13 @@ var styles = StyleSheet.create({
     backgroundColor: '#9d9d9d',
     padding: 10,
     fontWeight: 'bold',
+  },
+  image: {
+    width: '20%',
+    height: 100,
+    marginLeft: 15,
+    resizeMode: 'stretch',
+    position: 'absolute',
+    bottom: 700,
   },
 });
